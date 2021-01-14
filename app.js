@@ -4,9 +4,9 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const errorController = require('./controllers/error');
 // const expressHBS = require('express-handlebars');
-
 const app = express();
 
+//View Engines
 // app.engine('hbs', expressHBS({
 //     layoutsDir: 'views/layouts/',
 //     defaultLayout: 'main-layout',
@@ -22,11 +22,13 @@ const adminRoutes = require('./routes/admin');
 const shopRoutes = require('./routes/shop');
 
 app.use(bodyParser.urlencoded({ extended: false }));
+//Css code
 app.use(express.static(path.join(__dirname, 'public')));
 
+//Routes
 app.use('/admin', adminRoutes);
 app.use(shopRoutes);
-
 app.use(errorController.get404Page);
 
+//Server
 app.listen(3000);
