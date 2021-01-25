@@ -1,1 +1,1 @@
-# My First NodeJs Application
+# Using Sequlize in Node.JS application
