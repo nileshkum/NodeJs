@@ -1,1 +1,1 @@
-# Using Sequlize in Node.JS application
+# Added Mongodb to the application
