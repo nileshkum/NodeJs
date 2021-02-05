@@ -28,7 +28,7 @@ exports.getProduct = (req, res, next) => {
                 product: product,
                 pageTitle: product.title,
                 path: '/products',
-                isLoggedIn: req.isession.sLoggedIn
+                isLoggedIn: req.session.isLoggedIn
             })
         })
         .catch(err => {
@@ -75,7 +75,7 @@ exports.postCart = (req, res, next) => {
     Product
         .findById(productId)
         .then(product => {
-            return req.session.user.addToCart(product);
+            return req.user.addToCart(product);
         })
         .then(result => {
             // console.log(result);
@@ -116,15 +116,15 @@ exports.postOrder = (req, res, next) => {
             });
             const order = new Order({
                 user: {
-                    name: req.session.user.name,
-                    userId: req.session.user
+                    name: req.user.name,
+                    userId: req.user
                 },
                 products: products
             });
             return order.save();
         })
         .then(result => {
-            return req.session.user.clearCart();
+            return req.user.clearCart();
         })
         .then(() => {
             res.redirect('/orders');
