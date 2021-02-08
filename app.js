@@ -5,6 +5,8 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const session = require('express-session');
 const MongoDBStore = require('connect-mongodb-session')(session);
+const csrf = require('csurf');
+const flash = require('connect-flash');
 
 
 const errorController = require('./controllers/error');
@@ -16,6 +18,8 @@ const store = new MongoDBStore({
     uri: MONGODB_URI,
     collection: 'sessions'
 });
+
+const csrfProtection = csrf();
 
 //View Engines
 app.set('view engine', 'ejs');
@@ -37,6 +41,9 @@ app.use(session({
     store: store
 }));
 
+app.use(csrfProtection);
+app.use(flash());
+
 app.use((req, res, next) => {
     if (!req.session.user) {
         return next();
@@ -52,6 +59,12 @@ app.use((req, res, next) => {
 
 });
 
+app.use((req, res, next) => {
+    res.locals.isLoggedIn = req.session.isLoggedIn;
+    res.locals.csrfToken = req.csrfToken();
+    next();
+})
+
 //Routes
 app.use('/admin', adminRoutes);
 app.use(shopRoutes);
@@ -62,19 +75,6 @@ app.use(errorController.get404Page);
 mongoose
     .connect(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(result => {
-        User.findOne()
-            .then(user => {
-                if (!user) {
-                    const user = new User({
-                        name: 'Nilesh',
-                        email: 'test@test.ca',
-                        cart: {
-                            items: []
-                        }
-                    });
-                    user.save();
-                }
-            })
         app.listen(3000);
     })
     .catch(err => {
