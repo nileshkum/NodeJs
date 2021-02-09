@@ -1,12 +1,19 @@
-const bcrypt = require('bcryptjs');
+const bscrypt = require('bcryptjs');
+const nodemailer = require('nodemailer');
+const sendGridTransport = require('nodemailer-sendgrid-transport');
 
 const User = require('../models/user');
 
+const transporter = nodemailer.createTransport({
+    host: "smtp.mailtrap.io",
+    port: 2525,
+    auth: {
+        user: "8918b5bb914e26",
+        pass: "a1a531713b87fe"
+    }
+});
+
 exports.getLogin = (req, res, next) => {
-    // const isLoggedIn = req
-    //     .get('Cookie')
-    //     .split('=')[1] === 'true';
-    // console.log(req.session.isLoggedIn);
     let message = req.flash('error');
     if (message.length > 0) {
         message = message[0];
@@ -91,7 +98,25 @@ exports.postSignup = (req, res, next) => {
                     return user.save();
                 })
                 .then(result => {
+                    let mailOptions = {
+                        from: '"digitalPoint" <node-shop@digiPoint.com>',
+                        to: 'nileshstud@gmail.com',
+                        subject: 'Nice Nodemailer test',
+                        text: 'Hey there, it’s our first message sent with Nodemailer ',
+                        html: '<b>Hey there! </b><br> This is our first message sent with Nodemailer<br /><img src="cid:uniq-mailtrap.png" alt="mailtrap" />',
+
+                    };
                     res.redirect('/login');
+
+                    return transporter.sendMail(mailOptions, (error, info) => {
+                        if (error) {
+                            return console.log(error);
+                        }
+                        console.log('Message sent: %s', info.messageId);
+                    });
+                })
+                .catch(err => {
+                    console.log(err);
                 })
         })
         .catch(err => {
