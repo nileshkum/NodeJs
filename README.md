@@ -1,6 +1,6 @@
-#   Sending Emails using Third party Packages
+#   Input Validations Using Express-validator
 
-## Mailtrap
-## NodeMailer
+## Email adress validation
+## Password and confirm password validations
 
 
