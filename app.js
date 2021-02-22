@@ -50,11 +50,14 @@ app.use((req, res, next) => {
     }
     User.findById(req.session.user._id)
         .then(user => {
+            if (!user) {
+                return next();
+            }
             req.user = user;
             next();
         })
         .catch(err => {
-            console.log(err);
+            throw new Error(err);
         })
 
 });
@@ -70,7 +73,13 @@ app.use('/admin', adminRoutes);
 app.use(shopRoutes);
 app.use(authRoutes);
 
+app.get('/500', errorController.get500Page);
+
 app.use(errorController.get404Page);
+
+app.use((error, req, res, next) => {
+    res.redirect('/500');
+})
 
 mongoose
     .connect(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
