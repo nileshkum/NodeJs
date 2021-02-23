@@ -1,15 +1,7 @@
-#  File Upload & Download
+#  PDF Kit for Generating PDF Files
 
-Replace Image Url field with file picker
+## Delete files related to product when product is delete or edited
+Unlink function to delete files related to product from file system
 
-Store Image within the app
-Store Pdf and allow option to down it 
-Check for file type, only allowed file type to be uploaded
-Storing the url of the Image in database
-Serving image Statiscally
-Downloading files with Authentication
-Setting headrs
-Restricting file access for the user
-Streaming the data 
 
 
