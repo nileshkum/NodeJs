@@ -1,4 +1,3 @@
-# Pagination
+# Async Java script code on Client side
 
-Adding pagination to index and product page
-Create an include to resue the same page
+Use the functionality on Delete Action
