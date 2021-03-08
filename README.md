@@ -1,3 +1,5 @@
-# Async Java script code on Client side
+# Payments in App
 
-Use the functionality on Delete Action
+## Adding a checkout Page
+
+Add .env file in root folder with your API Keys
