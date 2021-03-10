@@ -24,8 +24,6 @@
                     <button id="order-btn" class="btn">Order</button>
                     <script src="https://js.stripe.com/v3/"></script>
                     <script>
-                        // var pubKey = config.PUB_KEY;
-                        // var stripe = Stripe('pk_test_51ISiIJL4NltXcuJMYU7CzmAMHkEwic0vgTOk8NqsuuZbud9YwxVPWmRN6r1IQEshydE5OCah3uLLnRjq9xAn0dZf002HqpqXju');
                         var stripe = Stripe('<%= pubKey %>');
                         var orderBtn = document.getElementById('order-btn');
                         orderBtn.addEventListener('click', function () {

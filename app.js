@@ -12,8 +12,9 @@ const multer = require('multer');
 
 const errorController = require('./controllers/error');
 const User = require('./models/user');
+require('dotenv').config();
 
-const MONGODB_URI = 'mongodb+srv://Neel3004:digiP%40040708@cluster0.jour5.mongodb.net/shop?retryWrites=true&w=majority';
+const MONGODB_URI = process.env.MG_DB
 const app = express();
 const store = new MongoDBStore({
     uri: MONGODB_URI,

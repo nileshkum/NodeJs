@@ -8,10 +8,8 @@ const Product = require('../models/product');
 const Order = require('../models/order');
 
 require('dotenv').config();
-const secKey = process.env.SEC_KEY;
-// const pubKey = process.env.PUB_KEY;
 const stripe = require('stripe')(process.env.SEC_KEY);
-// const stripe = require('stripe')('sk_test_51ISiIJL4NltXcuJMieWNUfXrZnxTSAEdpb1B1USaT9qDwscpmuLBYsKLHQkwyNmRSLcEVSnMOQQBGO9ieNMtXqzm00t4LRq9Kr');
+
 
 const ITEMS_PER_PAGE = 2;
 
